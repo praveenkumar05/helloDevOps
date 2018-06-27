@@ -38,9 +38,8 @@ pipeline{
           
           stage ('Artifactory Deploy'){
             
-                branch "master"
-                    }
-                steps{
+             
+                   steps{
                
                     script {
                         def server = Artifactory.server('helloDevOps_demo')
@@ -52,7 +51,7 @@ pipeline{
                         server.publishBuildInfo buildInfo
                         }
                    }
-            
+            }
           
           
      
