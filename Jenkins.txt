@@ -1,20 +1,20 @@
 pipeline{
     agent any
     tools{
-        maven 'apache-maven-3.5.3'
+        maven 'default'
     }
     stages{
        
         stage('Compile'){
             steps{
-                withMaven(maven: 'apache-maven-3.5.3'){
+                withMaven(maven: 'default'){
                     bat 'mvn clean compile'
                 }
             }
         }
         stage('Test'){
             steps{
-                withMaven(maven: 'apache-maven-3.5.3'){
+                withMaven(maven: 'default'){
                     bat 'mvn test'
                 }
             }
@@ -22,7 +22,7 @@ pipeline{
         
         stage('install'){
             steps{
-                withMaven(maven: 'apache-maven-3.5.3'){
+                withMaven(maven: 'default'){
                     bat 'mvn install'
                 }
             }
@@ -30,8 +30,8 @@ pipeline{
           
          stage ('SonarQube Analysis'){
             steps{
-                        withSonarQubeEnv('Sonar_Qube') {
-                             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.login=admin -Dsonar.password=admin'
+                        withSonarQubeEnv('sonarqube') {
+                             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
                              }
                    }
           }
@@ -42,10 +42,10 @@ pipeline{
                    steps{
                
                     script {
-                        def server = Artifactory.server('helloDevOps_demo')
+                        def server = Artifactory.server('default')
                         def rtMaven = Artifactory.newMavenBuild()
                         rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-                        rtMaven.deployer server: server, releaseRepo: 'praveen', snapshotRepo: 'praveen'
+                        rtMaven.deployer server: server, releaseRepo: 'praveen05', snapshotRepo: 'praveen05'
                         rtMaven.tool = 'apache-maven-3.5.3'
                         def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
                         server.publishBuildInfo buildInfo
