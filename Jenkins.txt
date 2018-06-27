@@ -7,14 +7,14 @@ pipeline{
        
         stage('Compile'){
             steps{
-                withMaven(Maven: 'apache-maven-3.5.3'){
+                withMaven(maven: 'apache-maven-3.5.3'){
                     bat 'mvn clean compile'
                 }
             }
         }
         stage('Test'){
             steps{
-                withMaven(Maven: 'apache-maven-3.5.3'){
+                withMaven(maven: 'apache-maven-3.5.3'){
                     bat 'mvn Test'
                 }
             }
