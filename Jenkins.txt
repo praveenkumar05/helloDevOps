@@ -38,7 +38,7 @@ pipeline{
           
           stage ('Artifactory Deploy'){
                 steps{
-                {
+               
                     script {
                         def server = Artifactory.server('helloDevOps_demo')
                         def rtMaven = Artifactory.newMavenBuild()
