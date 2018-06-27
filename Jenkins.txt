@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    tools{
+        maven 'apache-maven-3.5.3'
+    }
+    stages{
+        stage('Checkout'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '7a886256-30f3-4328-b8b6-19ee9162b156', url: 'https://github.com/praveenkumar05/helloDevOps.git']]])
+                echo 'CHECKOUT SUCCESSFULL'
+            }
+        }}
+        stage('Compile'){
+            steps{
+                withmaven(Maven: 'apache-maven-3.5.3'){
+                    bat 'mvn clean compile'
+                }
+                echo 'Compile'
+            }
+        }
+        stage('Test'){
+            steps{
+                withmaven(Maven: 'apache-maven-3.5.3'){
+                    bat 'mvn Test'
+                }
+                echo 'test'
+            }
+        }
+
+
+        }
