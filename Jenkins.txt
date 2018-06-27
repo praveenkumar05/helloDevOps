@@ -15,10 +15,18 @@ pipeline{
         stage('Test'){
             steps{
                 withMaven(maven: 'apache-maven-3.5.3'){
-                    bat 'mvn Test'
+                    bat 'mvn test'
                 }
             }
         }
+        
+        stage('install'){
+            steps{
+                withMaven(maven: 'apache-maven-3.5.3'){
+                    bat 'mvn install'
+                }
+            }
+     
 
 
         }
