@@ -29,7 +29,7 @@ pipeline{
          stage ('SonarQube Analysis'){
             steps{
                         withSonarQubeEnv('Sonar_Qube') {
-                             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+                             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.login=admin -Dsonar.password=admin'
                              }
                    }
           }
