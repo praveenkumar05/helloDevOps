@@ -5,6 +5,7 @@ pipeline{
        
         stage('Compile'){
             steps{
+             bat  'PATH=%JAVA_HOME%\bin;%M2_HOME%\bin'
                 withMaven(maven: 'apache-maven-3.5.3'){
                     bat 'mvn clean compile'
                 }
