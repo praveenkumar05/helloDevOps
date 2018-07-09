@@ -5,14 +5,14 @@ pipeline{
        
         stage('Compile'){
             steps{
-                withMaven(maven: 'default'){
+                withMaven(maven: 'apache-maven-3.5.3'){
                     bat 'mvn clean compile'
                 }
             }
         }
         stage('Test'){
             steps{
-                withMaven(maven: 'default'){
+                withMaven(maven: 'apache-maven-3.5.3'){
                     bat 'mvn test'
                 }
             }
@@ -20,7 +20,7 @@ pipeline{
         
         stage('install'){
             steps{
-                withMaven(maven: 'default'){
+                withMaven(maven: 'apache-maven-3.5.3'){
                     bat 'mvn install'
                 }
             }
@@ -28,7 +28,7 @@ pipeline{
           
          stage ('SonarQube Analysis'){
             steps{
-                        withSonarQubeEnv('sonarqube') {
+                        withSonarQubeEnv('Sonar_Qube') {
                              bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
                              }
                    }
@@ -40,10 +40,10 @@ pipeline{
                    steps{
                
                     script {
-                        def server = Artifactory.server('default')
+                        def server = Artifactory.server('helloDevOps_demo')
                         def rtMaven = Artifactory.newMavenBuild()
-                        rtMaven.deployer server: server, releaseRepo: 'praveen05', snapshotRepo: 'praveen05'
-                        rtMaven.tool = 'default'
+                        rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+                        rtMaven.deployer server: server, releaseRepo: 'praveen', snapshotRepo: 'praveen'
                         def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
                         server.publishBuildInfo buildInfo
                         }
