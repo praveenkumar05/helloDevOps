@@ -1,6 +1,8 @@
 pipeline{
     agent any
- 
+    tools{
+        maven 'apache-maven-3.5.3'
+    }
     stages{
        
         stage('Compile'){
@@ -26,7 +28,14 @@ pipeline{
             }
           }
           
-         
+         stage ('SonarQube Analysis'){
+            steps{
+                        withSonarQubeEnv('Sonar_Qube') {
+                             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.login=admin -Dsonar.password=admin'
+                             }
+                   }
+          }
+          
           stage ('Artifactory Deploy'){
             
              
@@ -37,6 +46,7 @@ pipeline{
                         def rtMaven = Artifactory.newMavenBuild()
                         rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                         rtMaven.deployer server: server, releaseRepo: 'praveen', snapshotRepo: 'praveen'
+                        rtMaven.tool = 'apache-maven-3.5.3'
                         def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
                         server.publishBuildInfo buildInfo
                         }
