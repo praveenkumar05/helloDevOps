@@ -43,6 +43,7 @@ pipeline{
                 sh ' cp /data/admin/jenkins/.jenkins/workspace/Jenkins_test_docker/target/helloDevOps.war . '
                 sh ' pwd '
                 sh 'docker build -t dockerize .'
+                sh ' docker images '
             }
           }
           
