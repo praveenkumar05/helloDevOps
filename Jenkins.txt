@@ -1,29 +1,29 @@
 pipeline{
     agent any
     tools{
-        maven 'apache-maven-3_5_4'
+        maven 'maven-3_5_4'
     }
     stages{
        
         stage('Compile'){
             steps{
-                withMaven(maven: 'apache-maven-3_5_4'){
-                    bat 'mvn clean compile'
+                withMaven(maven: 'maven-3_5_4'){
+                    sh 'mvn clean compile'
                 }
             }
         }
         stage('Test'){
             steps{
-                withMaven(maven: 'apache-maven-3_5_4'){
-                    bat 'mvn test'
+                withMaven(maven: 'maven-3_5_4'){
+                    sh 'mvn test'
                 }
             }
         }
         
         stage('install'){
             steps{
-                withMaven(maven: 'apache-maven-3_5_4'){
-                    bat 'mvn install'
+                withMaven(maven: 'maven-3_5_4'){
+                    sh 'mvn install'
                 }
             }
           }
@@ -31,7 +31,7 @@ pipeline{
          stage ('SonarQube Analysis'){
             steps{
                         withSonarQubeEnv('SonarQubeSumit') {
-                             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.login=admin -Dsonar.password=admin'
+                             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.login=admin -Dsonar.password=admin'
                              }
                    }
           }
