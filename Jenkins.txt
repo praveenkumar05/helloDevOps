@@ -50,7 +50,7 @@ pipeline{
           
           stage ('Docker container'){
             steps{
-                sh ' docker run -d –name DDocker -p 1234:8080 dockerize '
+                sh ' docker run -d --name DDocker -p 1234:8080 dockerize '
             }
           }
           
