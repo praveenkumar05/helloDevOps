@@ -39,7 +39,9 @@ pipeline{
           
           stage ('Docker Build'){
             steps{
-                sh 'docker build -t dockerize '
+                sh 'ls '
+                sh ' pwd '
+                sh 'docker build -t dockerize .'
             }
           }
           
