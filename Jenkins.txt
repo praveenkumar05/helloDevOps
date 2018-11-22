@@ -44,10 +44,15 @@ pipeline{
                 sh ' pwd '
                 sh 'docker build -t dockerize .'
                 sh ' docker images '
+                
+                }
+          }
+          
+          stage ('Docker container'){
+            steps{
                 sh ' docker run -d –name DDocker -p 1234:8080 dockerize '
             }
           }
-          
           
           
      
