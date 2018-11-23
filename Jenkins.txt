@@ -49,7 +49,7 @@ pipeline{
           }
           
           stage ('Docker container'){
-            stage{            
+            steps{            
                 sh '''
                     echo "inside shell"
                     if (docker ps -a | grep -q DDocker)
