@@ -3,7 +3,7 @@ pipeline{
     tools{
         maven 'maven_3_5_4'
     }
-    stages{
+   /* stages{
        
         stage('Compile'){
             steps{
@@ -26,7 +26,7 @@ pipeline{
                     sh 'mvn install'
                 }
             }
-          }
+          } */
           
        /*  stage ('SonarQube Analysis'){
             steps{
@@ -51,6 +51,7 @@ pipeline{
           stage ('Docker container'){
             
                 sh '''
+                    echo "inside shell"
                     if (docker ps -a | grep -q DDocker)
                     then 
                     docker rm -f $(docker ps -a | grep DDocker | awk '{print $1}')
