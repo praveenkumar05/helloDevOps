@@ -1,6 +1,5 @@
-pipeline{
     node{
-       
+       /*
        stage('Compile'){
              sh 'mvn clean compile'
         }
@@ -22,8 +21,12 @@ pipeline{
                              }
                    }
           } */
-          
-          
+          */
+          stage ('user inputs') {
+          steps {
+            input message : "do you want to proceed ?"  
+          }
+          }
           stage ('Docker Build'){
                 sh 'ls '
                 sh ' cp /data/admin/jenkins/.jenkins/workspace/Jenkins_test_docker/target/helloDevOps.war . '
@@ -48,4 +51,3 @@ pipeline{
           
    }       
      
-}
