@@ -3,9 +3,9 @@ pipeline{
     tools{
         maven 'maven_3_5_4'
     }
-   /* stages{
+    stages{
        
-        stage('Compile'){
+       stage('Compile'){
             steps{
                 withMaven(maven: 'maven_3_5_4'){
                     sh 'mvn clean compile'
@@ -26,7 +26,7 @@ pipeline{
                     sh 'mvn install'
                 }
             }
-          } */
+          } 
           
        /*  stage ('SonarQube Analysis'){
             steps{
@@ -54,7 +54,7 @@ pipeline{
                     echo "inside shell"
                     if (docker ps -a | grep -q DDocker)
                     then 
-                    docker rm -f $(docker ps -a | grep DDocker | awk '{print $1}')
+                    docker rm -f $(docker ps -a | grep DDocker | awk '{print $1}' )
                     else 
                     echo "DDocker isnt running"
                     fi 
