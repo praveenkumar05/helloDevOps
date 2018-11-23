@@ -56,8 +56,9 @@ pipeline{
                     docker rm -f $(docker ps -a | grep DDocker | awk '{print $1}')
                     else 
                     echo "DDocker isnt running"
-                    fi '''
-                sh ' docker run -d --name DDocker -p 1234:8080 dockerize '
+                    fi 
+                    docker run -d --name DDocker -p 1234:8080 dockerize 
+                   '''
             }
           }
           
